@@ -1,0 +1,142 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2023-09-25T13:59:11+02:00",
+    "name": "BeamMP Servers - ngrok",
+    "author": "noah@noahserver.online",
+    "description": "This is the server for the multiplayer mod BeamMP for the game BeamNG.drive. The server is the point through which all clients communicate. You can write lua mods for the server, detailed instructions on the BeamMP Wiki.\r\nWith ngrok",
+    "features": null,
+    "docker_images": {
+        "Debian": "ghcr.io\/parkervcp\/yolks:debian"
+    },
+    "file_denylist": [],
+    "startup": ".\/BeamMP-Server & .\/ngrok tcp {{SERVER_PORT}}",
+    "config": {
+        "files": "{\r\n    \"ServerConfig.toml\": {\r\n        \"parser\": \"file\",\r\n        \"find\": {\r\n            \"Name =\": \"Name = \\\"{{env.NAME}}\\\"\",\r\n            \"Port =\": \"Port = {{server.build.default.port}}\",\r\n            \"AuthKey =\": \"AuthKey = \\\"{{env.AUTHKEY}}\\\"\",\r\n            \"Private =\": \"Private = {{env.PRIVATE}}\",\r\n            \"MaxPlayers =\": \"MaxPlayers = {{server.build.env.MAX_PLAYERS}}\",\r\n            \"Description =\": \"Description = \\\"{{env.DESCRIPTION}}\\\"\",\r\n            \"MaxCars =\": \"MaxCars = {{env.MAX_CARS}}\",\r\n            \"Map =\": \"Map = \\\"\/levels\/{{env.MAP}}\/info.json\\\"\",\r\n            \"LogChat =\": \"LogChat = \\\"{{env.LOGCHAT}}\\\"\"\r\n        }\r\n    },\r\n    \"ngrok.yml\": {\r\n        \"parser\": \"yml\",\r\n        \"find\": {\r\n            \"authtoken\": \"{{NGROK_AUTHTOKEN}}\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \"[INFO] Vehicle data network online\"\r\n}",
+        "logs": "{}",
+        "stop": "exit"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n#Create the server directory\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\n#Remove any old versions\r\nrm -f BeamMP-Server\r\n\r\n#Check for latest release & download URLs\r\nLATEST_JSON=$(curl --silent \"https:\/\/api.github.com\/repos\/BeamMP\/BeamMP-Server\/releases\/latest\")\r\nRELEASES=$(curl --silent \"https:\/\/api.github.com\/repos\/BeamMP\/BeamMP-Server\/releases\")\r\n\r\nif [ -z \"${VERSION}\" ] || [ \"${VERSION}\" == \"latest\" ]; then\r\n    echo -e \"Using latest BeamMP server version\"\r\n    DOWNLOAD_URL=$(echo ${LATEST_JSON} | jq .assets | jq -r .[].browser_download_url | grep -i \"${MATCH}\" | head -1)\r\nelse\r\n    echo -e \"Chosen version :${VERSION}. Verifying version from releases\"\r\n    VERSION_CHECK=$(echo ${RELEASES} | jq -r --arg VERSION \"${VERSION}\" '.[] | select(.tag_name==$VERSION) | .tag_name')\r\n    if [ \"${VERSION}\" == \"${VERSION_CHECK}\" ]; then\r\n        DOWNLOAD_URL=$(echo ${RELEASES} | jq -r --arg VERSION \"${VERSION}\" '.[] | select(.tag_name==$VERSION) | .assets[].browser_download_url' | grep -i \"${MATCH}\" | head -1)\r\n    else\r\n        echo -e \"No valid versions found. Defaulting to the latest release\"\r\n        DOWNLOAD_URL=$(echo ${LATEST_JSON} | jq .assets | jq -r .[].browser_download_url | grep -i Server-linux | head -1)\r\n    fi\r\nfi\r\n\r\n#Download the BeamMP server binary\r\necho -e \"Running curl -sSL ${DOWNLOAD_URL} -o BeamMP-Server\"\r\ncurl -sSL ${DOWNLOAD_URL} -o BeamMP-Server\r\nchmod +x BeamMP-Server\r\n\r\n#Create a default configuration file\r\necho \"[HTTP]\r\n# Recommended to keep enabled. With SSL the server will serve https and requires valid key and cert files\r\nUseSSL = true\r\n# Enables the internal HTTP server\r\nHTTPServerEnabled = false\r\nSSLKeyPath = \\\".\/.ssl\/HttpServer\/key.pem\\\"\r\nHTTPServerPort = 8080\r\nSSLCertPath = \\\".\/.ssl\/HttpServer\/cert.pem\\\"\r\n\r\n[General]\r\n# If SendErrors is `true`, the server will send helpful info about crashes and other issues back to the BeamMP developers. This info may include your config, who is on your server at the time of the error, and similar general information. This kind of data is vital in helping us diagnose and fix issues faster. This has no impact on server performance. You can opt-out of this system by setting this to `false`\r\nSendErrorsShowMessage = true\r\nName = \\\"BeamMP Server\\\"\r\nPort = 30814\r\nResourceFolder = \\\"Resources\\\"\r\n# AuthKey has to be filled out in order to run the server\r\nAuthKey = \\\"\\\"\r\nPrivate = true\r\nMaxPlayers = 10\r\nDebug = false\r\nLogChat = true\r\nDescription = \\\"BeamMP Default Description\\\"\r\nMaxCars = 1\r\nMap = \\\"\/levels\/gridmap_v2\/info.json\\\"\r\n# You can turn on\/off the SendErrors message you get on startup here\r\nSendErrors = true\" > ServerConfig.toml\r\n\r\n\r\necho \"-----------------------------------------\"\r\necho \"Installation completed...\"\r\necho \"-----------------------------------------\"\r\n\r\n#!\/bin\/bash\r\n\r\n#--- ngrok download ---\r\n\r\n# URL of ngrok download (Conpatible with java docker images)\r\nURL=\"https:\/\/bin.equinox.io\/c\/bNyj1mQVY4c\/ngrok-v3-stable-linux-amd64.tgz\"\r\n\r\nFILE=\"ngrok-v3-stable-linux-amd64.tgz\"\r\n\r\n# Download file\r\nwget \"$URL\"\r\n\r\n# Unzip file\r\ntar -xzf \"$FILE\"\r\n\r\n# Delete zipped file\r\nrm \"$FILE\"\r\n\r\necho \"ngrok has been successfully downloaded and unzipped, and the zip file has been deleted.\"\r\necho \"---------SERVER READY!---------\"",
+            "container": "ghcr.io\/parkervcp\/installers:debian",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server Name",
+            "description": "The name of your server. This is what appears on the server list.",
+            "env_variable": "NAME",
+            "default_value": "BeamMP Server",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:128",
+            "field_type": "text"
+        },
+        {
+            "name": "Server Description",
+            "description": "Sets the server description",
+            "env_variable": "DESCRIPTION",
+            "default_value": "BeamMP Default Description",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:128",
+            "field_type": "text"
+        },
+        {
+            "name": "BeamMP Server Version",
+            "description": "The BeamMP server version to be installed. Latest or invalid versions will default to latest. See all available versions at https:\/\/github.com\/BeamMP\/BeamMP-Server\/releases\r\n\r\nexample: v3.1.0 or  v2.2.0 or latest",
+            "env_variable": "VERSION",
+            "default_value": "latest",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:8",
+            "field_type": "text"
+        },
+        {
+            "name": "Authentication Key",
+            "description": "The authentication key for your server. A key can be obtained from the BeamMP keymaster at https:\/\/beamng-mp.com\/k\/dashboard",
+            "env_variable": "AUTHKEY",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:64",
+            "field_type": "text"
+        },
+        {
+            "name": "Max Players",
+            "description": "The maximum number of players allowed on the server.",
+            "env_variable": "MAX_PLAYERS",
+            "default_value": "6",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|max:999999999999",
+            "field_type": "text"
+        },
+        {
+            "name": "Private",
+            "description": "IF THIS IS SET TO FALSE YOUR IP WILL BE EXPOSED IN THE INFO OF THE SERVER, ANYONE CAN SEE IT \/ Should the server be private?",
+            "env_variable": "PRIVATE",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Max Cars",
+            "description": "The maximum number of cars allowed to be spawned per player.",
+            "env_variable": "MAX_CARS",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|max:99999999999999999999999999",
+            "field_type": "text"
+        },
+        {
+            "name": "Map",
+            "description": "The map for your server. Stock maps are listed below.\r\n\r\ngridmap_v2\r\nautomation_test_track\r\neast_coast_usa\r\nhirochi_raceway\r\nitaly\r\njungle_rock_island\r\nindustrial\r\nsmall_island\r\nsmallgrid\r\nutah\r\nwest_coast_usa\r\ndriver_training\r\nderby",
+            "env_variable": "MAP",
+            "default_value": "gridmap_v2",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:64",
+            "field_type": "text"
+        },
+        {
+            "name": "Chat logging",
+            "description": "Enable chat logging by the server",
+            "env_variable": "LOGCHAT",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Match",
+            "description": "The match we have to do on there github package.\r\n\r\nCurrently, they have a special build for debian 11, what is the docker image we use.\r\nGo to https:\/\/github.com\/BeamMP\/BeamMP-Server\/releases if the version you want has an asset \"debian\" then select \"Server-debian\" if not then \"Server-linux\"",
+            "env_variable": "MATCH",
+            "default_value": "Server-debian",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:Server-debian,Server-linux",
+            "field_type": "text"
+        },
+        {
+            "name": "Ngrok Authtoken",
+            "description": "",
+            "env_variable": "NGROK_AUTHTOKEN",
+            "default_value": "",
+            "user_viewable": false,
+            "user_editable": false,
+            "rules": "required|string",
+            "field_type": "text"
+        }
+    ]
+}
