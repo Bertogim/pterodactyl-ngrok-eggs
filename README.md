@@ -11,3 +11,9 @@ To get the ip of your server you will have to go to https://dashboard.ngrok.com/
 
 ### Games/eggs that don't work with ngrok:
 * Mindustry
+
+
+### Tags:
+Pterodactyl with ngrok
+Pterodactyl ngrok
+pterodactyl egg ngrok
