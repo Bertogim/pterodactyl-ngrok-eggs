@@ -8,3 +8,6 @@ To get the ip of your server you will have to go to https://dashboard.ngrok.com/
 [Paper](https://github.com/Bertogim/pterodactyl-eggs/blob/main/Minecraft/egg-paper-ngrok.json)
 
 ### [Beammmp](https://github.com/Bertogim/pterodactyl-eggs/blob/main/Beammp/egg-beam-mp-ngrok.json)
+
+### Games/eggs that don't work with ngrok:
+* Mindustry
