@@ -6,8 +6,8 @@
     },
     "exported_at": "2023-09-25T13:30:27+02:00",
     "name": "Paper - ngrok",
-    "author": "biosgim@gmail.com",
-    "description": "High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies.\r\nWith ngrok",
+    "author": "parker@pterodactyl.io",
+    "description": "High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies.\r\nNgrok addtition by Bertogim",
     "features": [
         "eula",
         "java_version",
