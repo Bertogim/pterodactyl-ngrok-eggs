@@ -6,8 +6,8 @@
     },
     "exported_at": "2023-09-25T13:59:11+02:00",
     "name": "BeamMP Servers - ngrok",
-    "author": "biosgim@gmail.com",
-    "description": "This is the server for the multiplayer mod BeamMP for the game BeamNG.drive. The server is the point through which all clients communicate. You can write lua mods for the server, detailed instructions on the BeamMP Wiki.\r\nWith ngrok",
+    "author": "noah@noahserver.online",
+    "description": "This is the server for the multiplayer mod BeamMP for the game BeamNG.drive. The server is the point through which all clients communicate. You can write lua mods for the server, detailed instructions on the BeamMP Wiki.\r\nNgrok addtition by Bertogim",
     "features": null,
     "docker_images": {
         "Debian": "ghcr.io\/parkervcp\/yolks:debian"
