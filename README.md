@@ -2,7 +2,7 @@
 Pterodactyl eggs i made <br />
 To get the ip of your server you will have to go to https://dashboard.ngrok.com/cloud-edge/endpoints
 
-##Games:
+## Games:
 
 ### [Minecraft](https://github.com/Bertogim/pterodactyl-eggs/tree/main/Minecraft): 
 [Vanilla](https://github.com/Bertogim/pterodactyl-eggs/blob/main/Minecraft/egg-vanilla-ngrok.json) <br />
