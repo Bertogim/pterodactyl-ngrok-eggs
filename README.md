@@ -1,6 +1,6 @@
 # Pterodactyl ngrok eggs
 Pterodactyl eggs with ngrok <br />
-To get the ip of your server you will have to go to https://dashboard.ngrok.com/cloud-edge/endpoints
+To get the ip of your server you will have to go to https://dashboard.ngrok.com/cloud-edge/endpoints <br />
 Feel free to open a request/feedback/issue in: [Issues](https://github.com/Bertogim/pterodactyl-ngrok-eggs/issues)
 
 ## Games:
