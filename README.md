@@ -12,7 +12,7 @@ To get the ip of your server you will have to go to https://dashboard.ngrok.com/
 
 ## Games that don't work with ngrok:
 
-### * Mindustry
+### Mindustry
 Mindustry needs tcp and udp "fowarding" wigh ngrok dosn't support, i researched and people say it works with localtonet i will try to do that and see if it works
   
 
