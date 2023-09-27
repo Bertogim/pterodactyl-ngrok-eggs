@@ -1,7 +1,8 @@
 # Pterodactyl ngrok eggs
-Pterodactyl eggs with ngrok <br />
+Pterodactyl eggs with ngrok <br /> <br />
+What is ngrok? <br />
 Ngrok is a tunneling software to portforward your server to custom other than the numeric ip <br />
-Ngrok is an alternative from port forwarding in your router settings and exposing your ip <br />
+Ngrok is an alternative from port forwarding in your router settings and exposing your ip <br /> <br />
 To get the ip of your server, you have to go to https://dashboard.ngrok.com/cloud-edge/endpoints <br />
 Feel free to open a request/feedback/issue in: [Issues](https://github.com/Bertogim/pterodactyl-ngrok-eggs/issues)
 
