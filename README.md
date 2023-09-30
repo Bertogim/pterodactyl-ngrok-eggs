@@ -19,7 +19,10 @@ The eggs only supports ngrok endpoints at the time
 ## Games that don't work with ngrok:
 
 ### Mindustry
-Mindustry needs tcp and udp "fowarding" wigh ngrok dosn't support, i researched and people say it works with localtonet i will try to do that and see if it works
+Mindustry needs tcp and udp "fowarding" wigh ngrok dosn't support, although you can do it with localtonet (its like ngrok but supports tcp-udp at the same time) in your pc <br />
+1. Go to mindustry, start a world <br />
+2. Go to (ESC) and click "Host a multiplayer game" <br />
+3. Go to localtonet and open a tunnel tcp-udp in the port 6567 (mindustry port)
   
 
 
