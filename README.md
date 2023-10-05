@@ -14,11 +14,11 @@ The eggs are the default ones but with ngrok added, it installs ngrok and starts
 
 It adds this to the startup command:
 ```
-; .\/ngrok tcp {{SERVER_PORT}} --log=stdout > ngrok.log &
+; ./ngrok tcp {{SERVER_PORT}} --log=stdout > ngrok.log &
 ```
 It will look like this:
 ```
-java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}} ; .\/ngrok tcp {{SERVER_PORT}} --log=stdout > ngrok.log &
+java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}} ; ./ngrok tcp {{SERVER_PORT}} --log=stdout > ngrok.log &
 ```
 
 ## Downsides
