@@ -4,10 +4,10 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2023-12-31T20:18:07+01:00",
+    "exported_at": "2023-12-31T20:22:27+01:00",
     "name": "Paper - ngrok + dynmap",
     "author": "parker@pterodactyl.io",
-    "description": "High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies. With ngrok for the server and Dynmap",
+    "description": "High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies.",
     "features": [
         "eula",
         "java_version",
@@ -20,7 +20,7 @@
         "Java 8": "ghcr.io\/pterodactyl\/yolks:java_8"
     },
     "file_denylist": [],
-    "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}} ; .\/ngrok start server dynmap --log=stdout > ngrok.log &",
+    "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}} ; .\/ngrok start --all --config ngrok.yml --log=stdout > ngrok.log &",
     "config": {
         "files": "{\r\n    \"server.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"server-ip\": \"0.0.0.0\",\r\n            \"server-port\": \"{{server.build.default.port}}\",\r\n            \"query.port\": \"{{server.build.default.port}}\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \")! For help, type \"\r\n}",
