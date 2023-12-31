@@ -1,5 +1,5 @@
 version: "2"
-authtoken: '{{NGROK_AUTHTOKEN}}'
+authtoken: 000 #This is changed by the install script
 tunnels:
   server:
     addr: 001 #This is changed by the install script
