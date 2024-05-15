@@ -8,7 +8,7 @@ Feel free to open a request/feedback/issue in: [Issues](https://github.com/Berto
 
 **⚠️Using these eggs is intended for personal use, the ngrok token can be seen from ngrok.yml⚠️**
 
-## How it works
+## How to implement ngrok with your own eggs / How it works
 
 You can use this to create your own eggs with ngrok
 The eggs are the default ones but with ngrok added, it installs ngrok and starts it in the background
