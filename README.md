@@ -1,3 +1,5 @@
+## UPDATE: There are better services like Playit, or without limits: [nodejs-tcp-udp-tunnel](https://github.com/Bertogim/nodejs-tcp-udp-tunnel)
+
 # Pterodactyl ngrok eggs
 Pterodactyl eggs with ngrok <br /> <br />
 ## What is ngrok?
